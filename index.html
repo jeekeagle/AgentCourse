@@ -4,662 +4,814 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>智能体微课 · AgentCourse</title>
-<meta name="description" content="《智能体设计与应用》课程官方站点：Prompt 提示词库、Skill 技能库、教程与实战案例，持续更新。">
+<meta name="description" content="《智能体设计与应用》课程官方资源站：Prompt 提示词库、Skill 技能库、教程与实战案例，杂志式编排，持续更新。">
 <style>
   :root {
-    --sky-200: #bae6fd;
-    --sky-300: #7dd3fc;
-    --sky-400: #38bdf8;
-    --sky-500: #0ea5e9;
-    --sky-600: #0284c7;
-    --sky-700: #0369a1;
-    --sky-900: #0c4a6e;
-    --green-300: #86efac;
-    --green-400: #4ade80;
-    --white: #ffffff;
-    --glass-30: rgba(255, 255, 255, 0.30);
-    --glass-40: rgba(255, 255, 255, 0.40);
-    --glass-50: rgba(255, 255, 255, 0.50);
-    --glass-70: rgba(255, 255, 255, 0.70);
-    --border-glass: rgba(255, 255, 255, 0.45);
-    --radius-lg: 24px;
-    --radius-xl: 32px;
-    --shadow-card: 0 8px 32px rgba(2, 132, 199, 0.18);
-    --shadow-card-hover: 0 16px 48px rgba(2, 132, 199, 0.30), 0 0 30px rgba(125, 211, 252, 0.30);
-    --shadow-btn: 0 4px 14px rgba(2, 132, 199, 0.25);
-    --shadow-btn-hover: 0 8px 20px rgba(2, 132, 199, 0.60), 0 0 30px rgba(125, 211, 252, 0.30);
-    --shadow-btn-active: 0 2px 5px rgba(2, 132, 199, 0.30);
-    --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --red: #e63946;
+    --green: #2a9d8f;
+    --amber: #e9c46a;
+    --amber-deep: #a16207;
+    --navy: #264653;
+    --blue: #2563eb;
+    --purple: #7c3aed;
+    --zinc-50: #fafafa;
+    --zinc-100: #f4f4f5;
+    --zinc-200: #e4e4e7;
+    --zinc-400: #a1a1aa;
+    --zinc-500: #71717a;
+    --zinc-600: #52525b;
+    --zinc-900: #18181b;
+    --serif: Georgia, "Times New Roman", "Noto Serif SC", "Songti SC", SimSun, serif;
+    --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    --radius: 8px;
+    --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.06);
+    --shadow-md: 0 4px 12px rgba(24, 24, 27, 0.10);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(180deg, var(--sky-300) 0%, var(--sky-400) 55%, var(--sky-500) 100%);
-    background-attachment: fixed;
-    color: var(--white);
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: var(--sans);
+    background: #ffffff;
+    color: var(--zinc-900);
     line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: rgba(255, 255, 255, 0.55); color: var(--sky-900); }
+  ::selection { background: rgba(230, 57, 70, 0.15); }
 
-  /* ---------- 背景装饰：气泡 / 光斑 / 自然元素 ---------- */
-  .bg-deco {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.75), rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.05));
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    animation: floatUp 18s ease-in-out infinite;
-  }
-  .bubble.b1 { width: 180px; height: 180px; left: 6%;  top: 62%; animation-delay: 0s; }
-  .bubble.b2 { width: 90px;  height: 90px;  left: 20%; top: 85%; animation-delay: -6s; }
-  .bubble.b3 { width: 260px; height: 260px; right: 8%; top: 55%; animation-delay: -3s; opacity: 0.7; }
-  .bubble.b4 { width: 60px;  height: 60px;  right: 22%; top: 88%; animation-delay: -11s; }
-  .leaf-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.55;
-  }
-  .leaf-orb.g1 { width: 420px; height: 420px; background: var(--green-400); left: -140px; top: -120px; }
-  .leaf-orb.g2 { width: 380px; height: 380px; background: var(--sky-200); right: -120px; top: 8%; }
-  .leaf-orb.g3 { width: 460px; height: 460px; background: var(--green-300); left: 30%; bottom: -220px; opacity: 0.35; }
+  .container { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 768px)  { .container { padding: 0 24px; } }
+  @media (min-width: 1024px) { .container { padding: 0 32px; } }
 
-  @keyframes floatUp {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50%      { transform: translateY(-42px) translateX(14px); }
+  section { padding: 32px 0; }
+  @media (min-width: 768px)  { section { padding: 48px 0; } }
+  @media (min-width: 1024px) { section { padding: 64px 0; } }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
-  /* ---------- 通用容器 ---------- */
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px;
+  /* ---------- 报头顶栏 ---------- */
+  .topbar {
+    border-bottom: 1px solid var(--zinc-200);
+    background: var(--zinc-50);
+    font-size: 12px;
+    color: var(--zinc-500);
   }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+  .topbar .dot { color: var(--red); }
 
-  section { padding: 72px 0; }
-
-  /* ---------- 导航栏 ---------- */
+  /* ---------- 导航 ---------- */
   nav {
+    background: #fff;
+    border-bottom: 1px solid var(--zinc-200);
     position: sticky;
-    top: 16px;
+    top: 0;
     z-index: 10;
-    margin: 16px auto 0;
-    max-width: 1120px;
-    width: calc(100% - 48px);
-    background: var(--glass-40);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
-    border-radius: 999px;
-    box-shadow: var(--shadow-card);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 12px 28px;
+    gap: 16px;
+    padding: 14px 0;
   }
   .logo {
-    font-size: 20px;
+    font-family: var(--serif);
     font-weight: 700;
-    color: var(--white);
+    letter-spacing: -0.02em;
+    font-size: 20px;
+    color: var(--zinc-900);
     text-decoration: none;
-    text-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
   }
-  .logo-dot {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(125,211,252,0.5) 55%, rgba(14,165,233,0.35));
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 0 14px rgba(125, 211, 252, 0.7);
-    flex-shrink: 0;
+  .logo em {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
   }
-  .nav-links { display: flex; gap: 8px; list-style: none; }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
   .nav-links a {
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--zinc-600);
     text-decoration: none;
-    font-size: 15px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    transition: background 200ms var(--ease-out);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: color 200ms ease-out, background 200ms ease-out;
   }
-  .nav-links a:hover { background: rgba(255, 255, 255, 0.25); }
-  .nav-links a:focus-visible {
-    outline: 2px solid var(--sky-300);
-    outline-offset: 3px;
-  }
+  .nav-links a:hover { color: var(--red); background: var(--zinc-100); }
+  @media (max-width: 640px) { .nav-links { display: none; } }
 
-  /* ---------- Hero ---------- */
-  .hero { padding: 110px 0 90px; text-align: center; }
-  .hero-badge {
-    display: inline-block;
-    background: var(--glass-40);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-glass);
-    border-radius: 999px;
-    padding: 8px 22px;
-    font-size: 14px;
-    color: var(--white);
-    box-shadow: var(--shadow-btn);
-    margin-bottom: 28px;
-  }
-  .hero h1 {
-    font-size: clamp(40px, 7vw, 72px);
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-shadow: 0 4px 20px rgba(2, 132, 199, 0.40);
-    margin-bottom: 20px;
-  }
-  .hero p {
-    max-width: 620px;
-    margin: 0 auto 40px;
-    font-size: clamp(16px, 2.4vw, 19px);
-    color: rgba(255, 255, 255, 0.92);
-    text-shadow: 0 1px 8px rgba(2, 132, 199, 0.25);
-  }
-  .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-  /* ---------- 按钮（果冻弹跳 + 光泽 + 光晕） ---------- */
-  .btn {
-    position: relative;
+  /* ---------- 报头 Hero ---------- */
+  .hero { border-bottom: 3px double var(--zinc-900); padding: 40px 0 36px; }
+  @media (min-width: 768px) { .hero { padding: 64px 0 56px; } }
+  .kicker {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 34px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: inherit;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    border-radius: 999px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 200ms var(--ease-out);
-    box-shadow: var(--shadow-btn);
-  }
-  .btn::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.60), rgba(255,255,255,0.10));
-    border-radius: 999px 999px 40% 40% / 999px 999px 24px 24px;
-    pointer-events: none;
-  }
-  .btn-primary {
-    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.60));
-    color: var(--sky-700);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-btn-hover);
-  }
-  .btn-ghost {
-    background: rgba(14, 165, 233, 0.22);
-    color: var(--white);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  .btn-ghost:hover {
-    background: rgba(14, 165, 233, 0.34);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-btn-hover);
-  }
-  .btn:active {
-    transform: scale(0.95) translateY(0);
-    box-shadow: var(--shadow-btn-active);
-  }
-  .btn:focus-visible {
-    outline: 2px solid var(--sky-300);
-    outline-offset: 3px;
-  }
-
-  /* ---------- 章节标题 ---------- */
-  .section-title {
-    font-size: clamp(26px, 4vw, 36px);
-    font-weight: 800;
-    text-align: center;
-    text-shadow: 0 3px 14px rgba(2, 132, 199, 0.35);
-    margin-bottom: 12px;
-  }
-  .section-sub {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.88);
-    max-width: 560px;
-    margin: 0 auto 48px;
-    font-size: 16px;
-  }
-
-  /* ---------- 玻璃卡片（极光光斑 + 光泽 + 浮起） ---------- */
-  .grid { display: grid; gap: 24px; }
-  .grid-4 { grid-template-columns: repeat(4, 1fr); }
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 960px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px) { .grid-4, .grid-3 { grid-template-columns: 1fr; } }
-
-  .card {
-    position: relative;
-    background: var(--glass-30);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    padding: 28px;
-    overflow: hidden;
-    transition: all 300ms var(--ease-out);
-  }
-  .card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.08));
-    border-radius: var(--radius-lg) var(--radius-lg) 45% 45% / var(--radius-lg) var(--radius-lg) 28px 28px;
-    pointer-events: none;
-    transition: all 300ms var(--ease-out);
-  }
-  .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-card-hover);
-    background: var(--glass-40);
-  }
-  .card:hover::before { background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.18)); }
-  .card > * { position: relative; z-index: 1; }
-
-  .orb {
-    position: absolute;
-    width: 160px; height: 160px;
-    border-radius: 50%;
-    filter: blur(48px);
-    pointer-events: none;
-    transition: all 500ms var(--ease-out);
-  }
-  .orb.green { background: rgba(74, 222, 128, 0.28); top: -64px; right: -64px; }
-  .orb.blue  { background: rgba(56, 189, 248, 0.30); bottom: -64px; left: -64px; }
-  .card:hover .orb.green { transform: scale(1.5); background: rgba(134, 239, 172, 0.38); }
-  .card:hover .orb.blue  { transform: scale(1.5); background: rgba(125, 211, 252, 0.42); }
-
-  .card-icon {
-    width: 56px; height: 56px;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45));
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: var(--shadow-btn);
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
     margin-bottom: 18px;
   }
-  .card h3 {
-    font-size: 20px;
+  .kicker::before { content: ""; width: 28px; height: 2px; background: var(--red); }
+  .hero h1 {
+    font-family: var(--serif);
     font-weight: 700;
-    margin-bottom: 8px;
-    text-shadow: 0 2px 8px rgba(2, 132, 199, 0.30);
+    letter-spacing: -0.02em;
+    font-size: 34px;
+    line-height: 1.2;
+    max-width: 720px;
   }
-  .card p {
-    font-size: 14.5px;
-    color: rgba(255, 255, 255, 0.90);
-    margin-bottom: 16px;
+  @media (min-width: 768px)  { .hero h1 { font-size: 44px; } }
+  @media (min-width: 1024px) { .hero h1 { font-size: 52px; } }
+  .hero p {
+    margin-top: 16px;
+    max-width: 620px;
+    font-size: 15px;
+    color: var(--zinc-600);
   }
-  .tag {
-    display: inline-block;
-    font-size: 12.5px;
-    padding: 4px 14px;
-    border-radius: 999px;
-    background: rgba(14, 165, 233, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.40);
-    color: var(--white);
-  }
-  .tag.live { background: rgba(34, 197, 94, 0.30); }
+  @media (min-width: 768px) { .hero p { font-size: 16px; } }
+  .hero-actions { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* ---------- 五阶模型 ---------- */
-  .stages { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); }
-  @media (max-width: 960px) { .stages { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px) { .stages { grid-template-columns: 1fr; } }
-  .stage {
-    position: relative;
-    background: var(--glass-30);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--radius-lg);
-    padding: 24px 20px;
-    text-align: center;
-    box-shadow: var(--shadow-card);
-    overflow: hidden;
-    transition: all 300ms var(--ease-out);
-  }
-  .stage::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.08));
-    pointer-events: none;
-  }
-  .stage:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: var(--shadow-card-hover);
-  }
-  .stage > * { position: relative; z-index: 1; }
-  .stage-num {
+  /* ---------- 按钮 ---------- */
+  .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--sky-700);
-    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.65));
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.30);
-    margin-bottom: 14px;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    transition: all 300ms ease-out;
+    cursor: pointer;
+    font-family: var(--sans);
   }
-  .stage h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-  .stage p { font-size: 13px; color: rgba(255, 255, 255, 0.85); }
-  .stage.pending h3, .stage.pending p { opacity: 0.75; }
-  .stage-arrow {
-    align-self: center;
-    justify-self: center;
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+  .btn:active { transform: scale(0.95); }
+  .btn-primary { background: var(--red); color: #fff; }
+  .btn-primary:hover { background: #c92a36; }
+  .btn-ghost {
+    background: var(--zinc-100);
+    color: var(--zinc-700);
+    border: 1px solid var(--zinc-200);
   }
-  @media (max-width: 960px) { .stage-arrow { transform: rotate(90deg); } }
+  .btn-ghost:hover { background: var(--zinc-200); }
 
-  /* ---------- 上传计划清单 ---------- */
-  .plan-wrap {
+  /* ---------- 章节标题 ---------- */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--zinc-900);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-size: 24px;
+  }
+  @media (min-width: 768px) { .section-head h2 { font-size: 28px; } }
+  .section-head .meta {
+    font-size: 12px;
+    color: var(--zinc-500);
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .section-sub { font-size: 14px; color: var(--zinc-500); margin: -12px 0 24px; }
+
+  /* ---------- 杂志主网格（4 栏不等尺寸） ---------- */
+  .mag-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "feat" "c1" "c2" "c3" "c4";
+  }
+  @media (min-width: 640px) {
+    .mag-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: "feat feat" "c1 c2" "c3 c4";
+    }
+  }
+  @media (min-width: 1024px) {
+    .mag-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      grid-template-areas:
+        "feat feat c1 c2"
+        "feat feat c3 c4";
+    }
+  }
+  .area-feat { grid-area: feat; }
+  .area-c1 { grid-area: c1; }
+  .area-c2 { grid-area: c2; }
+  .area-c3 { grid-area: c3; }
+  .area-c4 { grid-area: c4; }
+
+  /* ---------- 文章卡片 ---------- */
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--zinc-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 300ms ease-out;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+
+  .card-media {
     position: relative;
-    background: var(--glass-30);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
-    padding: 36px;
-    max-width: 760px;
-    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--zinc-100);
+  }
+  .area-feat .card-media { aspect-ratio: 16 / 10; }
+  @media (max-width: 639px) { .area-feat .card-media { aspect-ratio: 16 / 9; } }
+
+  .ph {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    filter: grayscale(20%);
+    transform: scale(1);
+    transition: filter 300ms ease-out, transform 500ms ease-out;
+  }
+  .card:hover .ph { filter: grayscale(0); transform: scale(1.05); }
+  .ph .glyph { font-size: 44px; line-height: 1; opacity: 0.9; }
+  .area-feat .ph .glyph { font-size: 64px; }
+  .ph .soon {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .ph.prompt  { background: #dbeafe; color: #1d4ed8; }
+  .ph.skill   { background: #ccf0ec; color: #1f7a70; }
+  .ph.tut     { background: #faedcb; color: var(--amber-deep); }
+  .ph.case    { background: #ede4fb; color: #6d28d9; }
+
+  .card-body { display: flex; flex-direction: column; gap: 8px; padding: 16px; flex: 1; }
+  @media (min-width: 768px) { .card-body { padding: 20px; } }
+
+  .cat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cat {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .cat-line {
+    width: 16px;
+    height: 1px;
+    background: currentColor;
+    transition: width 300ms ease-out;
+  }
+  .card:hover .cat-line { width: 48px; }
+  .cat-red    { color: var(--red); }
+  .cat-blue   { color: var(--blue); }
+  .cat-green  { color: var(--green); }
+  .cat-amber  { color: var(--amber-deep); }
+  .cat-purple { color: var(--purple); }
+
+  .card h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--zinc-900);
+    transition: color 200ms ease-out;
+  }
+  .card:hover h3 { color: var(--red); }
+  .area-feat h3 { font-size: 26px; }
+  @media (min-width: 768px) { .area-feat h3 { font-size: 30px; } }
+
+  .card p.excerpt {
+    font-size: 14px;
+    color: var(--zinc-600);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .plan-wrap::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.06));
-    border-radius: var(--radius-xl) var(--radius-xl) 45% 45% / var(--radius-xl) var(--radius-xl) 36px 36px;
-    pointer-events: none;
+  .area-feat p.excerpt { -webkit-line-clamp: 3; font-size: 15px; }
+
+  .card-meta {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--zinc-100);
+    font-size: 12px;
+    color: var(--zinc-500);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
   }
-  .plan-wrap > * { position: relative; z-index: 1; }
+  .card-meta .sep { color: var(--zinc-400); }
+  .badge-soon {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--zinc-500);
+    background: var(--zinc-100);
+    border: 1px solid var(--zinc-200);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  /* ---------- 五阶模型（编辑列表） ---------- */
+  .stages {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .stages {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-areas: "s1 s1 s2 s3 s4 s5";
+    }
+  }
+  @media (min-width: 1024px) { .stages { gap: 20px; } }
+  .st1 { grid-area: s1; }
+  .st2 { grid-area: s2; }
+  .st3 { grid-area: s3; }
+  .st4 { grid-area: s4; }
+  .st5 { grid-area: s5; }
+  .stage {
+    background: var(--zinc-50);
+    border: 1px solid var(--zinc-200);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .stage .no {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+  }
+  .stage h3 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .stage p { font-size: 13px; color: var(--zinc-600); }
+  .stage.pending { background: #fff; }
+  .stage.pending .no { color: var(--zinc-400); }
+  .stage.pending h3 { color: var(--zinc-500); }
+
+  /* ---------- 上传计划 ---------- */
+  .plan {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) { .plan { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
   .plan-item {
     display: flex;
-    align-items: center;
     gap: 14px;
-    padding: 14px 18px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.22);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    margin-bottom: 12px;
-    transition: background 300ms var(--ease-out);
+    align-items: baseline;
+    background: #fff;
+    border: 1px solid var(--zinc-200);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-sm);
   }
-  .plan-item:last-child { margin-bottom: 0; }
-  .plan-item:hover { background: rgba(255, 255, 255, 0.38); }
-  .plan-check {
-    width: 26px; height: 26px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55));
-    border: 1px solid rgba(255,255,255,0.75);
-    color: var(--sky-700);
+  .plan-item .idx {
+    font-family: var(--serif);
     font-weight: 700;
+    font-size: 18px;
+    color: var(--zinc-400);
+    min-width: 28px;
   }
-  .plan-item span { font-size: 15px; color: var(--white); }
+  .plan-item.done .idx { color: var(--green); }
+  .plan-item .txt { font-size: 14px; color: var(--zinc-900); font-weight: 600; }
+  .plan-item .sub { display: block; font-size: 12.5px; font-weight: 400; color: var(--zinc-500); margin-top: 2px; }
+  .plan-item.done .txt { color: var(--green); }
 
   /* ---------- 关于 ---------- */
-  .about-text {
-    max-width: 680px;
-    margin: 0 auto;
-    background: var(--glass-40);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
-    padding: 36px 40px;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
+  .about {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
   }
-  .about-text::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.06));
-    border-radius: var(--radius-xl) var(--radius-xl) 45% 45% / var(--radius-xl) var(--radius-xl) 36px 36px;
-    pointer-events: none;
+  @media (min-width: 768px) { .about { grid-template-columns: 5fr 3fr; gap: 32px; } }
+  .about-text p {
+    font-size: 15px;
+    color: var(--zinc-600);
+    margin-bottom: 14px;
+    max-width: 62ch;
   }
-  .about-text > * { position: relative; z-index: 1; }
-  .about-text p { color: rgba(255, 255, 255, 0.95); font-size: 15.5px; margin-bottom: 14px; }
-  .about-text p:last-child { margin-bottom: 0; }
-  .about-text strong { color: var(--white); }
+  .about-text strong { color: var(--zinc-900); }
+  .about-aside {
+    background: var(--zinc-50);
+    border: 1px solid var(--zinc-200);
+    border-radius: var(--radius);
+    padding: 24px;
+    align-self: start;
+  }
+  .about-aside h4 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--zinc-200);
+  }
+  .about-aside ul { list-style: none; }
+  .about-aside li {
+    font-size: 13.5px;
+    color: var(--zinc-600);
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--zinc-200);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .about-aside li:last-child { border-bottom: none; }
+  .about-aside li b { color: var(--zinc-900); font-weight: 600; }
 
   /* ---------- 页脚 ---------- */
   footer {
-    position: relative;
-    z-index: 1;
-    margin-top: 40px;
-    background: var(--glass-40);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-top: 1px solid var(--border-glass);
-    padding: 44px 0 36px;
-    color: var(--sky-900);
+    background: var(--zinc-50);
+    border-top: 3px double var(--zinc-900);
+    padding: 40px 0 32px;
+    color: var(--zinc-600);
+    margin-top: 16px;
   }
-  .footer-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+  .footer-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
   }
-  .footer-brand { font-weight: 800; font-size: 18px; color: var(--sky-900); }
-  .footer-brand small { display: block; font-weight: 400; font-size: 13px; color: rgba(12, 74, 110, 0.75); margin-top: 4px; }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a {
-    color: var(--sky-700);
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+  .footer-grid .brand {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--zinc-900);
+  }
+  .footer-grid .brand em {
+    display: block;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-top: 4px;
+  }
+  .footer-grid p { font-size: 12.5px; margin-top: 10px; }
+  .footer-grid h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--zinc-900);
+    margin-bottom: 12px;
+  }
+  .footer-grid ul { list-style: none; }
+  .footer-grid li { margin-bottom: 8px; }
+  .footer-grid a {
+    color: var(--zinc-600);
     text-decoration: none;
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    transition: background 200ms var(--ease-out);
+    font-size: 13px;
+    transition: color 200ms ease-out;
   }
-  .footer-links a:hover { background: rgba(255, 255, 255, 0.45); }
-  .footer-links a:focus-visible {
-    outline: 2px solid var(--sky-300);
-    outline-offset: 3px;
+  .footer-grid a:hover { color: var(--red); }
+  .footer-copy {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--zinc-200);
+    font-size: 12px;
+    color: var(--zinc-500);
+    text-align: center;
   }
-  .footer-copy { width: 100%; text-align: center; font-size: 13px; color: rgba(12, 74, 110, 0.65); margin-top: 18px; }
 
-  /* ---------- 动效降级 ---------- */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .bubble, .leaf-orb { animation: none; }
-    .card, .stage, .btn, .plan-item { transition: none; }
-    .card:hover, .stage:hover, .btn:hover { transform: none; }
+    * { transition: none !important; }
+    .card:hover .ph { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-deco" aria-hidden="true">
-  <div class="leaf-orb g1"></div>
-  <div class="leaf-orb g2"></div>
-  <div class="leaf-orb g3"></div>
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
-  <div class="bubble b4"></div>
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>2026 年 10 月 29 日 · 第 1 期</span>
+    <span><span class="dot">●</span> 资源持续更新中</span>
+  </div>
 </div>
 
 <nav aria-label="站点导航">
-  <div class="nav-inner">
-    <a class="logo" href="#top"><span class="logo-dot" aria-hidden="true"></span>智能体微课</a>
+  <div class="container nav-inner">
+    <a class="logo" href="#top">智能体微课<em>AgentCourse</em></a>
     <ul class="nav-links">
       <li><a href="#resources">资源库</a></li>
       <li><a href="#framework">课程框架</a></li>
       <li><a href="#plan">更新计划</a></li>
       <li><a href="#about">关于</a></li>
     </ul>
+    <a class="btn btn-primary" href="https://github.com/jeekeagle/AgentCourse" target="_blank" rel="noopener">GitHub</a>
   </div>
 </nav>
 
-<header class="hero container" id="top">
-  <span class="hero-badge">📚 《智能体设计与应用》课程配套资源站 · 内容陆续上传中</span>
-  <h1>智能体微课</h1>
-  <p>把课程里用到的 Prompt、Skill、教程和案例，全部沉淀在这一个地方。学的每一阶，都能在这里找到对应的可复用资产。</p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="#resources">浏览资源库</a>
-    <a class="btn btn-ghost" href="#framework">了解课程框架</a>
+<header class="hero" id="top">
+  <div class="container">
+    <span class="kicker">课程官方资源站 · Vol.01</span>
+    <h1>把课程里讲过的，变成你能带走的。</h1>
+    <p>《智能体设计与应用》课程配套资源库：Prompt 提示词、Skill 技能、分步教程与实战案例，按杂志方式编排，随课程进度持续更新。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#resources">浏览资源库</a>
+      <a class="btn btn-ghost" href="#framework">课程框架</a>
+    </div>
   </div>
 </header>
 
 <main>
-  <section id="resources" class="container">
-    <h2 class="section-title">资源库</h2>
-    <p class="section-sub">四大板块持续更新，全部配套课程章节，随学随取。</p>
-    <div class="grid grid-4">
-      <div class="card">
-        <span class="orb green" aria-hidden="true"></span>
-        <span class="orb blue" aria-hidden="true"></span>
-        <div class="card-icon" aria-hidden="true">💬</div>
-        <h3>Prompt 提示词库</h3>
-        <p>课程中演示与作业用到的全部提示词模板，按章节与场景分类，可直接复制使用。</p>
-        <span class="tag">陆续上传</span>
+  <section id="resources">
+    <div class="container">
+      <div class="section-head">
+        <h2>资源库</h2>
+        <span class="meta">四大板块 · 陆续上传</span>
       </div>
-      <div class="card">
-        <span class="orb green" aria-hidden="true"></span>
-        <span class="orb blue" aria-hidden="true"></span>
-        <div class="card-icon" aria-hidden="true">🧩</div>
-        <h3>Skill 技能库</h3>
-        <p>课程配套的智能体 Skill 资产：结构、写法与封装方法，拿来即用、改改就能上线。</p>
-        <span class="tag">陆续上传</span>
-      </div>
-      <div class="card">
-        <span class="orb green" aria-hidden="true"></span>
-        <span class="orb blue" aria-hidden="true"></span>
-        <div class="card-icon" aria-hidden="true">📖</div>
-        <h3>教程文档</h3>
-        <p>从入门到进阶的分步教程，对应课程每一讲的操作路径与配套课件要点。</p>
-        <span class="tag">陆续上传</span>
-      </div>
-      <div class="card">
-        <span class="orb green" aria-hidden="true"></span>
-        <span class="orb blue" aria-hidden="true"></span>
-        <div class="card-icon" aria-hidden="true">🎯</div>
-        <h3>实战案例</h3>
-        <p>完整的智能体应用案例拆解：需求、设计、实现与复盘，看见每一阶的真实落地。</p>
-        <span class="tag">陆续上传</span>
+      <p class="section-sub">特色板块大图呈现，常规板块紧凑排列——先看重点，再扫细节。</p>
+
+      <div class="mag-grid">
+        <!-- 特色：Prompt 提示词库（2×2） -->
+        <article class="card area-feat">
+          <div class="card-media">
+            <div class="ph prompt" aria-hidden="true">
+              <span class="glyph">💬</span>
+              <span class="soon">Featured · 即将上线</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-row">
+              <span class="cat cat-red">Prompt · 特色</span>
+              <span class="cat-line" aria-hidden="true"></span>
+            </div>
+            <h3>Prompt 提示词库</h3>
+            <p class="excerpt">课程中演示与作业用到的全部提示词模板，按章节与场景分类编排：从判断阶的信息收集，到影响阶的表达润色，每条均可直接复制、按需改写。首批模板将随第三章课件同步发布。</p>
+            <div class="card-meta">
+              <span>课程组</span><span class="sep">/</span>
+              <span>2026 年 10 月</span><span class="sep">/</span>
+              <span class="badge-soon">陆续上传</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Skill 技能库 -->
+        <article class="card area-c1">
+          <div class="card-media">
+            <div class="ph skill" aria-hidden="true">
+              <span class="glyph">🧩</span>
+              <span class="soon">Coming Soon</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-row">
+              <span class="cat cat-green">Skill</span>
+              <span class="cat-line" aria-hidden="true"></span>
+            </div>
+            <h3>Skill 技能库</h3>
+            <p class="excerpt">课程配套的智能体 Skill 资产：结构写法与封装方法。</p>
+            <div class="card-meta">
+              <span>课程组</span><span class="sep">/</span>
+              <span class="badge-soon">陆续上传</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 教程文档 -->
+        <article class="card area-c2">
+          <div class="card-media">
+            <div class="ph tut" aria-hidden="true">
+              <span class="glyph">📖</span>
+              <span class="soon">Coming Soon</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-row">
+              <span class="cat cat-amber">Tutorial</span>
+              <span class="cat-line" aria-hidden="true"></span>
+            </div>
+            <h3>教程文档</h3>
+            <p class="excerpt">从入门到进阶的分步教程，对应每一讲的操作路径。</p>
+            <div class="card-meta">
+              <span>课程组</span><span class="sep">/</span>
+              <span class="badge-soon">陆续上传</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 实战案例 -->
+        <article class="card area-c3">
+          <div class="card-media">
+            <div class="ph case" aria-hidden="true">
+              <span class="glyph">🎯</span>
+              <span class="soon">Coming Soon</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-row">
+              <span class="cat cat-purple">Case</span>
+              <span class="cat-line" aria-hidden="true"></span>
+            </div>
+            <h3>实战案例</h3>
+            <p class="excerpt">完整案例拆解：需求、设计、实现与复盘。</p>
+            <div class="card-meta">
+              <span>课程组</span><span class="sep">/</span>
+              <span class="badge-soon">陆续上传</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 课件速递 -->
+        <article class="card area-c4">
+          <div class="card-media">
+            <div class="ph tut" aria-hidden="true">
+              <span class="glyph">🗂</span>
+              <span class="soon">Coming Soon</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-row">
+              <span class="cat cat-blue">Slides</span>
+              <span class="cat-line" aria-hidden="true"></span>
+            </div>
+            <h3>课件速递</h3>
+            <p class="excerpt">各章课件与讲义要点索引，课后复习按图索骥。</p>
+            <div class="card-meta">
+              <span>课程组</span><span class="sep">/</span>
+              <span class="badge-soon">陆续上传</span>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="framework" class="container">
-    <h2 class="section-title">课程框架 · 五阶模型</h2>
-    <p class="section-sub">课程以「五阶模型」为主线，逐阶讲透智能体替人做事的边界与方式。每章末尾设「这一阶智能体替人做了什么」收束小节。</p>
-    <div class="stages">
-      <div class="stage">
-        <div class="stage-num">1</div>
-        <h3>判断阶</h3>
-        <p>智能体帮人收集信息、形成判断</p>
+  <section id="framework" style="background: var(--zinc-50); border-top: 1px solid var(--zinc-200); border-bottom: 1px solid var(--zinc-200);">
+    <div class="container">
+      <div class="section-head">
+        <h2>课程框架 · 五阶模型</h2>
+        <span class="meta">每章收束 · 这一阶智能体替人做了什么</span>
       </div>
-      <div class="stage-arrow" aria-hidden="true">→</div>
-      <div class="stage">
-        <div class="stage-num">2</div>
-        <h3>影响阶</h3>
-        <p>智能体替人表达、说服与影响他人</p>
-      </div>
-      <div class="stage-arrow" aria-hidden="true">→</div>
-      <div class="stage">
-        <div class="stage-num">3</div>
-        <h3>传递阶</h3>
-        <p>智能体替人传递执行、完成任务</p>
-      </div>
-      <div class="stage-arrow" aria-hidden="true">→</div>
-      <div class="stage pending">
-        <div class="stage-num">4</div>
-        <h3>阶段四</h3>
-        <p>随课程进度更新</p>
-      </div>
-      <div class="stage pending">
-        <div class="stage-num">5</div>
-        <h3>阶段五</h3>
-        <p>随课程进度更新</p>
+      <p class="section-sub">课程以「五阶模型」为主线，逐阶讲透智能体替人做事的边界与方式。</p>
+      <div class="stages">
+        <div class="stage st1">
+          <span class="no">01</span>
+          <h3>判断阶</h3>
+          <p>智能体帮人收集信息、交叉验证、形成判断——先解决「想清楚」。</p>
+        </div>
+        <div class="stage st2">
+          <span class="no">02</span>
+          <h3>影响阶</h3>
+          <p>智能体替人表达、说服与影响他人。</p>
+        </div>
+        <div class="stage st3">
+          <span class="no">03</span>
+          <h3>传递阶</h3>
+          <p>智能体替人传递执行、完成任务。</p>
+        </div>
+        <div class="stage st4 pending">
+          <span class="no">04</span>
+          <h3>阶段四</h3>
+          <p>随课程进度更新。</p>
+        </div>
+        <div class="stage st5 pending">
+          <span class="no">05</span>
+          <h3>阶段五</h3>
+          <p>随课程进度更新。</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="plan" class="container">
-    <h2 class="section-title">上传计划</h2>
-    <p class="section-sub">本站随课程进度滚动更新，以下是近期会上线的内容。</p>
-    <div class="plan-wrap">
-      <div class="plan-item"><span class="plan-check">✓</span><span>官网框架搭建（当前页面）</span></div>
-      <div class="plan-item"><span class="plan-check">·</span><span>Prompt 提示词库 · 第一批模板</span></div>
-      <div class="plan-item"><span class="plan-check">·</span><span>课程 Skill 资产与封装教程</span></div>
-      <div class="plan-item"><span class="plan-check">·</span><span>各章教程文档与课件要点</span></div>
-      <div class="plan-item"><span class="plan-check">·</span><span>实战案例拆解 · 第一辑</span></div>
+  <section id="plan">
+    <div class="container">
+      <div class="section-head">
+        <h2>上传计划</h2>
+        <span class="meta">滚动更新 · Roadmap</span>
+      </div>
+      <div class="plan">
+        <div class="plan-item done">
+          <span class="idx">01</span>
+          <div><span class="txt">官网框架搭建</span><span class="sub">杂志式首页已上线，随内容迭代</span></div>
+        </div>
+        <div class="plan-item">
+          <span class="idx">02</span>
+          <div><span class="txt">Prompt 提示词库 · 第一批模板</span><span class="sub">配套第三章课件同步发布</span></div>
+        </div>
+        <div class="plan-item">
+          <span class="idx">03</span>
+          <div><span class="txt">课程 Skill 资产与封装教程</span><span class="sub">结构、写法与上线流程</span></div>
+        </div>
+        <div class="plan-item">
+          <span class="idx">04</span>
+          <div><span class="txt">各章教程文档与课件要点</span><span class="sub">按章节编号组织，与课堂对应</span></div>
+        </div>
+        <div class="plan-item">
+          <span class="idx">05</span>
+          <div><span class="txt">实战案例拆解 · 第一辑</span><span class="sub">需求、设计、实现与复盘</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="about" class="container">
-    <h2 class="section-title">关于本站</h2>
-    <p class="section-sub">一个把课程「讲过的」变成「带走的」的开源资源站。</p>
-    <div class="about-text">
-      <p><strong>这是什么：</strong>本科课程《智能体设计与应用》的官方资源站。课程中出现的每一个 Prompt、每一个 Skill、每一份教程和案例，都会整理后发布在这里。</p>
-      <p><strong>给谁用：</strong>选课同学课后复习与实操，也欢迎任何对智能体设计感兴趣的人自由取用。</p>
-      <p><strong>怎么用：</strong>资源按「课程框架 → 章节 → 资源类型」组织，与课堂内容一一对应；建议配合课程进度使用，效果最佳。</p>
+  <section id="about" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-head">
+        <h2>关于本站</h2>
+        <span class="meta">Open Courseware</span>
+      </div>
+      <div class="about">
+        <div class="about-text">
+          <p><strong>这是什么：</strong>本科课程《智能体设计与应用》的官方资源站。课程中出现的每一个 Prompt、每一个 Skill、每一份教程和案例，都会整理后发布在这里。</p>
+          <p><strong>给谁用：</strong>选课同学课后复习与实操，也欢迎任何对智能体设计感兴趣的人自由取用。</p>
+          <p><strong>怎么用：</strong>资源按「课程框架 → 章节 → 资源类型」组织，与课堂内容一一对应；建议配合课程进度使用，效果最佳。</p>
+        </div>
+        <aside class="about-aside">
+          <h4>站点档案</h4>
+          <ul>
+            <li><b>课程</b><span>智能体设计与应用</span></li>
+            <li><b>资源板块</b><span>4 个（持续扩展）</span></li>
+            <li><b>更新频率</b><span>随课程进度</span></li>
+            <li><b>托管</b><span>GitHub Pages</span></li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">智能体微课<small>《智能体设计与应用》课程资源站</small></div>
-    <div class="footer-links">
-      <a href="https://github.com/jeekeagle/AgentCourse" target="_blank" rel="noopener">GitHub 仓库</a>
-      <a href="#resources">资源库</a>
-      <a href="#framework">课程框架</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="brand">智能体微课<em>AgentCourse</em></span>
+        <p>《智能体设计与应用》课程官方资源站。把讲过的变成带走的。</p>
+      </div>
+      <div>
+        <h4>导航</h4>
+        <ul>
+          <li><a href="#resources">资源库</a></li>
+          <li><a href="#framework">课程框架</a></li>
+          <li><a href="#plan">更新计划</a></li>
+          <li><a href="#about">关于</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>链接</h4>
+        <ul>
+          <li><a href="https://github.com/jeekeagle/AgentCourse" target="_blank" rel="noopener">GitHub 仓库</a></li>
+          <li><a href="https://jeekeagle.github.io/AgentCourse/" target="_blank" rel="noopener">本站地址</a></li>
+        </ul>
+      </div>
     </div>
     <div class="footer-copy">© 2026 智能体微课 · 内容持续更新中</div>
   </div>
